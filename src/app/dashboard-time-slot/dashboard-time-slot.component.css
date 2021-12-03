@@ -1,0 +1,13 @@
+.grid-container{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+     gap: 20px;
+}
+
+.grid-items{
+    cursor: pointer;
+}
+.grid-items:hover{
+    background-color: rgb(200, 201, 200);
+    color: white;
+}
