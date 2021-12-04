@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { SlotStore, SlotStoreState, BookSlotState } from '../store/slot-store';
-import {BehaviorSubject, Observer, Subject, Subscription} from 'rxjs';
+import {BehaviorSubject, Subscription} from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard-time-slot',
@@ -9,20 +10,23 @@ import {BehaviorSubject, Observer, Subject, Subscription} from 'rxjs';
 })
 export class DashboardTimeSlotComponent implements OnInit, OnDestroy {
 
-  // @ts-ignore
-  slotStoreSubs: Subscription;
+  slotStoreSubs = new Subscription();
   bookingList = new BehaviorSubject<BookSlotState[]>([]);
-  constructor(private slotStore: SlotStore) { }
+  constructor(private slotStore: SlotStore,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.slotStoreSubs = this.slotStore.slotStoreObs$.subscribe((state: SlotStoreState) => {
       // Getting the Slot Store Data
-      this.bookingList.next(state.bookSlotStore);
+      if (!state.selectedSlot){
+        this.bookingList.next(state.bookSlotStore);
+      }
     });
   }
 
   bookSlot(id: number): void{
-    console.log(id);
+    this.router.navigate(['/book-slot']);
+    this.slotStore.dispatchSelectedSlot(String(id));
   }
 
   ngOnDestroy(): void {

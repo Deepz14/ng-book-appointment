@@ -2,7 +2,7 @@ import { ComponentStore } from '@ngrx/component-store';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-const intitalState = [
+export const intitalState = [
     { id: 1, slot: '9.00 AM', timing: 'Morning', is_booked: false, first_name: '', last_name: '', phn_name: ''},
     { id: 2, slot: '9.30 AM', timing: 'Morning', is_booked: false, first_name: '', last_name: '', phn_name: ''},
     { id: 3, slot: '10.00 AM', timing: 'Morning', is_booked: false, first_name: '', last_name: '', phn_name: ''},
@@ -37,6 +37,7 @@ export interface BookSlotState{
 
 export interface SlotStoreState{
     bookSlotStore: BookSlotState[];
+    selectedSlot: string;
 }
 
 
@@ -45,8 +46,16 @@ export interface SlotStoreState{
 })
 export class SlotStore extends ComponentStore<SlotStoreState>{
     constructor(){
-        super({bookSlotStore: intitalState});
+        super({bookSlotStore: intitalState, selectedSlot: ''});
     }
 
     readonly slotStoreObs$: Observable<SlotStoreState> = this.select(state => state);
+
+    readonly dispatchSelectedSlot = this.updater((state, slotID: string) => ({
+      ...state, selectedSlot: slotID
+    }));
+
+    readonly updateSlotList = this.updater((state, bookedList: BookSlotState[]) => ({
+      ...state, bookSlotStore: bookedList, selectedSlot: ''
+    }));
 }
