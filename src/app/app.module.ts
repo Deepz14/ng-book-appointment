@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { DashboardTimeSlotComponent } from './dashboard-time-slot/dashboard-time-slot.component';
 import { BookSlotComponent } from './book-slot/book-slot.component';
+import { SlotStore } from './store/slot-store';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,7 @@ import { BookSlotComponent } from './book-slot/book-slot.component';
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [SlotStore],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
