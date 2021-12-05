@@ -18,9 +18,7 @@ export class DashboardTimeSlotComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.slotStoreSubs = this.slotStore.slotStoreObs$.subscribe((state: SlotStoreState) => {
       // Getting the Slot Store Data
-      if (!state.selectedSlot){
-        this.bookingList.next(state.bookSlotStore);
-      }
+      this.bookingList.next(state.bookSlotStore);
     });
   }
 

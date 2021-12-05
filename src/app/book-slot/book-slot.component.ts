@@ -42,6 +42,15 @@ export class BookSlotComponent implements OnInit, OnDestroy {
     return this.bookSlotForm.controls;
   }
 
+  numberOnly(event: KeyboardEvent): boolean {
+    const charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return false;
+    }
+    return true;
+
+  }
+
   resetSlotForm(): void{
     this.submitted = false;
     this.bookSlotForm.patchValue({

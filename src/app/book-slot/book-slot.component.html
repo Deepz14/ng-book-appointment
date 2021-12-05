@@ -31,7 +31,7 @@
                   <label class="col-sm-2 col-form-label">Phone Number</label>
                   <div class="col-sm-8">
                     <input type="text" class="form-control" formControlName="phn_name" [ngClass]="{'is-invalid': submitted && this.f.phn_name.errors}"
-                           placeholder="Enter phone number" autocomplete="off">
+                           placeholder="Enter phone number" (keypress)="numberOnly($event)" maxlength="10" autocomplete="off">
                     <div *ngIf="submitted && this.f.phn_name.errors" class="invalid-feedback">
                       <div *ngIf="this.f.phn_name.errors?.required">This field is required</div>
                     </div>
